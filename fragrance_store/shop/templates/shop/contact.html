@@ -1,0 +1,415 @@
+{% load static %}
+
+<link rel="stylesheet"
+      href="{% static 'shop/css/style.css' %}">
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Contact | LUXEPERFUME</title>
+
+<style>
+
+:root{
+    --dark:#240018;
+    --dark-2:#180010;
+    --burgundy:#3A082D;
+    --purple:#5A0F46;
+    --gold:#D6A84F;
+    --light-gold:#F0D58A;
+    --cream:#FFF8F0;
+    --text:#EDE1E8;
+    --muted:#CDBAC6;
+    --border:#64304F;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial;
+    background:var(--dark);
+    color:var(--text);
+}
+
+.header{
+
+    background:var(--burgundy);
+
+    border-bottom:1px solid var(--border);
+
+    padding:20px 7%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:var(--cream);
+}
+
+.logo{
+
+    font-family:Georgia;
+
+    font-size:25px;
+
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:var(--gold);
+}
+
+.nav{
+    display:flex;
+
+    gap:25px;
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+}
+
+.nav a{
+    color:var(--text);
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    font-size:13px;
+}
+
+.nav a:hover{
+    color:var(--light-gold);
+}
+
+
+.contact{
+
+    width:90%;
+
+    max-width:1100px;
+
+    margin:50px auto;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:30px;
+}
+
+
+.info{
+
+    padding:45px;
+
+    border-radius:15px;
+
+    color:var(--text);
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--dark-2),
+        var(--purple)
+    );
+
+    border:1px solid var(--border);
+}
+
+.info h1{
+
+    font-family:Georgia;
+
+    font-size:42px;
+
+    margin-bottom:20px;
+}
+
+.info > p{
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+    margin-bottom:30px;
+}
+
+.info-box{
+
+    margin-top:22px;
+}
+
+.info-box h3{
+
+    color:var(--light-gold);
+
+    margin-bottom:7px;
+}
+
+.info-box p{
+
+    color:var(--text);
+
+    font-size:14px;
+}
+
+
+.form{
+
+    background:var(--burgundy);
+
+    padding:40px;
+
+    border-radius:15px;
+
+    border:1px solid var(--border);
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,.35);
+}
+
+.form h2{
+
+    font-family:Georgia;
+
+    color:var(--cream);
+
+    font-size:30px;
+
+    margin-bottom:25px;
+}
+
+.form input,
+.form textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-bottom:15px;
+
+    border:1px solid var(--border);
+
+    background:var(--dark-2);
+
+    color:var(--text);
+
+    border-radius:6px;
+
+    outline:none;
+
+    font-size:14px;
+}
+
+.form input:focus,
+.form textarea:focus{
+
+    border-color:var(--gold);
+}
+
+.form button{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:6px;
+
+    background:linear-gradient(135deg,var(--gold),var(--light-gold));
+
+    color:var(--dark);
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+@media(max-width:700px){
+
+    .header{
+        flex-wrap:wrap;
+        gap:12px;
+    }
+
+    .contact{
+        grid-template-columns:1fr;
+    }
+
+    .nav{
+        order:3;
+        width:100%;
+        gap:10px;
+        justify-content:center;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">
+        ✦ LUXE<span>PERFUME</span>
+    </div>
+
+    <nav class="nav">
+
+        <a href="{% url 'home' %}">
+            🏠 Home
+        </a>
+
+        <a href="{% url 'products' %}">
+            🧴 Shop
+        </a>
+
+        <a href="{% url 'contact' %}">
+            📞 Contact
+        </a>
+
+    </nav>
+
+    <div class="nav-actions">
+        <a href="{% url 'cart' %}" class="cart-button">
+            🛒 Cart
+        </a>
+    </div>
+
+</header>
+
+
+<section class="contact">
+
+
+    <div class="info">
+
+        <h1>
+            Let's Talk
+        </h1>
+
+        <p>
+            Have a question about our fragrances,
+            your order or delivery?
+            Our team is here to help.
+        </p>
+
+
+        <div class="info-box">
+
+            <h3>
+                📍 Visit Us
+            </h3>
+
+            <p>
+                Coimbatore, Tamil Nadu, India
+            </p>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <h3>
+                📞 Call Us
+            </h3>
+
+            <p>
+                +91 98765 43210
+            </p>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <h3>
+                ✉️ Email
+            </h3>
+
+            <p>
+                support@luxeparfum.com
+            </p>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <h3>
+                🕐 Support Hours
+            </h3>
+
+            <p>
+                Monday - Saturday
+                <br>
+                9:00 AM - 6:00 PM
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="form">
+
+        <h2>
+            Send Us A Message
+        </h2>
+
+        <form>
+
+            <input
+                type="text"
+                placeholder="Your Name"
+                required
+            >
+
+            <input
+                type="email"
+                placeholder="Email Address"
+                required
+            >
+
+            <input
+                type="text"
+                placeholder="Subject"
+                required
+            >
+
+            <textarea
+                rows="6"
+                placeholder="Write your message..."
+                required
+            ></textarea>
+
+            <button>
+                SEND MESSAGE →
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>

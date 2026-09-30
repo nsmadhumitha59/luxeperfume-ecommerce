@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Luxe Parfum</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'shop/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            LUXE PARFUM
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/products/">Shop</a>
+            <a href="#">Collections</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <div class="nav-icons">
+            🔍
+            ❤️
+            🛒
+            👤
+        </div>
+
+    </nav>
+
+
+    <!-- Hero Section -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="subtitle">
+                LUXURY FRAGRANCE COLLECTION
+            </p>
+
+            <h1>
+                Discover Your<br>
+                Signature Scent
+            </h1>
+
+            <p>
+                Elegant fragrances crafted to express
+                your personality and style.
+            </p>
+
+            <a href="/products/" class="shop-btn">
+                SHOP NOW
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Featured Products -->
+
+    <section class="products-section">
+
+        <div class="section-title">
+
+            <p>OUR COLLECTION</p>
+
+            <h2>
+                Featured Fragrances
+            </h2>
+
+        </div>
+
+
+        <div class="product-grid">
+
+            {% for product in products %}
+
+            <div class="product-card">
+
+                <div class="product-image">
+
+                    {% if product.image %}
+
+                    <img src="{{ product.image.url }}"
+                         alt="{{ product.name }}">
+
+                    {% endif %}
+
+                    {% if product.discount > 0 %}
+
+                    <span class="discount">
+                        -{{ product.discount }}%
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <p class="brand">
+                        {{ product.brand }}
+                    </p>
+
+                    <h3>
+                        {{ product.name }}
+                    </h3>
+
+                    <p class="notes">
+                        {{ product.fragrance_notes }}
+                    </p>
+
+                    <div class="price">
+
+                        <span>
+                            ₹{{ product.price }}
+                        </span>
+
+                    </div>
+
+                    <button>
+                        ADD TO CART
+                    </button>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</body>
+</html>

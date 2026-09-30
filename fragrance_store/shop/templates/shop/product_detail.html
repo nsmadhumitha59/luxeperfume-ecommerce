@@ -1,0 +1,1476 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product.name }} | LUXEPERFUME</title>
+
+
+    <style>
+
+        :root {
+            --dark: #240018;
+            --dark-2: #180010;
+            --burgundy: #3A082D;
+            --purple: #5A0F46;
+            --gold: #D6A84F;
+            --light-gold: #F0D58A;
+            --cream: #FFF8F0;
+            --text: #EDE1E8;
+            --muted: #CDBAC6;
+            --border: #64304F;
+        }
+
+        /* =================================================
+           RESET
+        ================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                radial-gradient(circle at 80% 20%, rgba(118,36,95,0.28), transparent 35%),
+                radial-gradient(circle at 15% 80%, rgba(90,15,70,0.22), transparent 35%),
+                linear-gradient(135deg, #12000c, var(--dark), var(--burgundy), var(--dark-2));
+
+            color: var(--text);
+
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =================================================
+           NAVBAR
+        ================================================= */
+
+        .navbar {
+            width: 100%;
+
+            height: 78px;
+
+            padding: 0 6%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: var(--burgundy);
+
+            border-bottom: 1px solid var(--border);
+
+            box-shadow:
+                0 5px 25px rgba(0,0,0,0.35);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+            font-size: 22px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            color: var(--cream);
+
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+
+        .nav-links {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        .nav-links a {
+            color: var(--text);
+
+            padding: 10px 15px;
+
+            border-radius: 25px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+
+        .nav-links a:hover {
+            color: var(--light-gold);
+
+            background: var(--purple);
+
+            transform: translateY(-2px);
+        }
+
+
+        .nav-links .active {
+            color: var(--dark);
+
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+
+            box-shadow:
+                0 5px 15px rgba(214,168,79,0.25);
+        }
+
+
+        .cart-nav {
+            color: var(--dark) !important;
+
+            background: linear-gradient(135deg, var(--gold), var(--light-gold)) !important;
+        }
+
+
+        /* =================================================
+           BREADCRUMB
+        ================================================= */
+
+        .breadcrumb {
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 25px auto 0;
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+
+        .breadcrumb a {
+            color: var(--light-gold);
+
+            font-weight: 600;
+        }
+
+
+        .breadcrumb span {
+            margin: 0 8px;
+
+            color: var(--muted);
+        }
+
+
+        /* =================================================
+           PRODUCT MAIN
+        ================================================= */
+
+        .product-container {
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 30px auto 70px;
+
+            display: grid;
+
+            grid-template-columns:
+                1.05fr 0.95fr;
+
+            gap: 60px;
+
+            align-items: center;
+        }
+
+
+        /* =================================================
+           IMAGE SIDE
+        ================================================= */
+
+        .image-section {
+            position: relative;
+
+            padding: 25px;
+
+            border-radius: 30px;
+
+                background: linear-gradient(135deg, var(--dark-2), var(--purple));
+
+            box-shadow:
+                0 20px 45px rgba(0,0,0,0.35);
+
+            overflow: hidden;
+        }
+
+
+        .image-section::before {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+
+            height: 300px;
+
+            border-radius: 50%;
+
+            background: rgba(214,168,79,0.12);
+
+            top: -100px;
+
+            right: -70px;
+        }
+
+
+        .image-section::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(90,15,70,0.35);
+
+            bottom: -80px;
+
+            left: -50px;
+        }
+
+
+        .discount {
+            position: absolute;
+
+            top: 25px;
+
+            left: 25px;
+
+            z-index: 5;
+
+            padding: 8px 15px;
+
+            border-radius: 25px;
+
+            background: #e74c3c;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 5px 15px
+                rgba(231,76,60,0.25);
+        }
+
+
+        .favorite {
+            position: absolute;
+
+            top: 23px;
+
+            right: 23px;
+
+            width: 43px;
+
+            height: 43px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: var(--gold);
+
+            color: var(--dark);
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+            z-index: 10;
+
+            box-shadow:
+                0 5px 15px
+                rgba(0,0,0,0.12);
+
+            transition: 0.3s;
+        }
+
+
+        .favorite:hover {
+            background: var(--purple);
+
+            color: var(--cream);
+
+            transform: scale(1.08);
+        }
+
+
+        .main-image {
+            width: 100%;
+
+            height: 530px;
+
+            object-fit: cover;
+
+            border-radius: 22px;
+
+            position: relative;
+
+            z-index: 2;
+
+            display: block;
+
+            box-shadow:
+                0 15px 35px
+                rgba(0,0,0,0.15);
+
+            transition: 0.5s;
+        }
+
+
+        .main-image:hover {
+            transform: scale(1.02);
+        }
+
+
+        /* =================================================
+           PRODUCT INFO
+        ================================================= */
+
+        .product-info {
+            padding: 10px 0;
+        }
+
+
+        .brand {
+            color: var(--gold);
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .product-title {
+            color: var(--cream);
+
+            font-size: 46px;
+
+            line-height: 1.1;
+
+            margin-bottom: 15px;
+        }
+
+
+        .rating-row {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .stars {
+            color: var(--gold);
+
+            font-size: 18px;
+
+            letter-spacing: 2px;
+        }
+
+
+        .rating-text {
+            color: var(--muted);
+
+            font-size: 14px;
+        }
+
+
+        /* =================================================
+           PRICE
+        ================================================= */
+
+        .price-row {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .price {
+            color: var(--gold);
+
+            font-size: 34px;
+
+            font-weight: 900;
+        }
+
+
+        .old-price {
+            color: var(--muted);
+
+            font-size: 16px;
+
+            text-decoration: line-through;
+        }
+
+
+        .offer {
+            display: inline-block;
+
+            color: var(--light-gold);
+
+            background: var(--purple);
+
+            padding: 6px 11px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =================================================
+           DESCRIPTION
+        ================================================= */
+
+        .description {
+            color: var(--muted);
+
+            font-size: 15px;
+
+            line-height: 1.8;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =================================================
+           PRODUCT DETAILS
+        ================================================= */
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .info-card {
+            padding: 16px;
+
+            background: var(--burgundy);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            transition: 0.3s;
+        }
+
+
+        .info-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.30);
+        }
+
+
+        .info-card small {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .info-card strong {
+            color: var(--cream);
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =================================================
+           STOCK
+        ================================================= */
+
+        .stock {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #8bd5a2;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 22px;
+        }
+
+
+        .stock-dot {
+            width: 9px;
+
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #56c781;
+
+            box-shadow:
+                0 0 0 4px rgba(86,199,129,0.18);
+        }
+
+
+        /* =================================================
+           BUTTONS
+        ================================================= */
+
+        .buttons {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .add-cart {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 16px;
+
+            border-radius: 30px;
+
+            color: var(--dark);
+
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 8px 20px rgba(214,168,79,0.25);
+
+            transition: 0.3s;
+        }
+
+
+        .add-cart:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 25px rgba(214,168,79,0.35);
+        }
+
+
+        .buy-now {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 16px;
+
+            border-radius: 30px;
+
+            color: var(--cream);
+
+            background: var(--purple);
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .buy-now:hover {
+            background: var(--burgundy);
+
+            transform: translateY(-3px);
+        }
+
+
+        /* =================================================
+           BENEFITS
+        ================================================= */
+
+        .benefits {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid var(--border);
+        }
+
+
+        .benefit {
+            text-align: center;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+
+        .benefit-icon {
+            display: block;
+
+            font-size: 22px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .benefit strong {
+            display: block;
+
+            color: var(--cream);
+
+            font-size: 11px;
+
+            margin-bottom: 2px;
+        }
+
+
+        /* =================================================
+           WHY CHOOSE US
+        ================================================= */
+
+        .why-section {
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 0 auto 70px;
+
+            text-align: center;
+        }
+
+
+        .why-section h2 {
+            color: var(--cream);
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .why-section > p {
+            color: var(--muted);
+
+            font-size: 14px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .why-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .why-card {
+            padding: 30px 22px;
+
+            background: var(--burgundy);
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            transition: 0.3s;
+        }
+
+
+        .why-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 15px 30px rgba(0,0,0,0.35);
+        }
+
+
+        .why-icon {
+            font-size: 36px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .why-card h3 {
+            color: var(--light-gold);
+
+            font-size: 17px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .why-card p {
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        footer {
+            background: var(--dark-2);
+
+            color: var(--text);
+
+            border-top: 1px solid var(--border);
+
+            text-align: center;
+
+            padding: 45px 20px;
+        }
+
+
+        footer h3 {
+            font-size: 24px;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 8px;
+        }
+
+
+        footer p {
+            color: var(--muted);
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .footer-links {
+            margin-top: 18px;
+        }
+
+
+        .footer-links a {
+            color: var(--text);
+
+            margin: 0 10px;
+
+            font-size: 13px;
+        }
+
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+
+        /* =================================================
+           TABLET
+        ================================================= */
+
+        @media (max-width: 950px) {
+
+            .product-container {
+                grid-template-columns: 1fr;
+
+                gap: 35px;
+            }
+
+            .main-image {
+                height: 500px;
+            }
+
+            .product-title {
+                font-size: 40px;
+            }
+
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: auto;
+
+                padding: 15px 4%;
+
+                flex-wrap: wrap;
+
+                gap: 12px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                order: 3;
+
+                width: 100%;
+
+                justify-content: center;
+
+                gap: 3px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+
+                padding: 8px 8px;
+            }
+
+            .product-container {
+                width: 94%;
+
+                margin-top: 20px;
+            }
+
+            .image-section {
+                padding: 15px;
+
+                border-radius: 22px;
+            }
+
+            .main-image {
+                height: 380px;
+
+                border-radius: 17px;
+            }
+
+            .product-title {
+                font-size: 34px;
+            }
+
+            .price {
+                font-size: 28px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================================
+     NAVBAR
+================================================= -->
+
+<header class="navbar">
+
+
+    <div class="logo">
+
+        ✦ LUXE<span>PERFUME</span>
+
+    </div>
+
+
+    <nav class="nav-links">
+
+        <a href="{% url 'home' %}">
+            🏠 Home
+        </a>
+
+        <a href="{% url 'products' %}"
+           class="active">
+            🛍 Shop
+        </a>
+
+        <a href="{% url 'about' %}">
+            About
+        </a>
+
+        <a href="{% url 'contact' %}">
+            Contact
+        </a>
+
+        <a href="{% url 'cart' %}"
+           class="cart-nav">
+            🛒 Cart
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =================================================
+     BREADCRUMB
+================================================= -->
+
+<div class="breadcrumb">
+
+    <a href="{% url 'home' %}">
+        Home
+    </a>
+
+    <span>›</span>
+
+    <a href="{% url 'products' %}">
+        Shop
+    </a>
+
+    <span>›</span>
+
+    {{ product.name }}
+
+</div>
+
+
+
+<!-- =================================================
+     PRODUCT
+================================================= -->
+
+<section class="product-container">
+
+
+    <!-- =================================================
+         IMAGE
+    ================================================== -->
+
+    <div class="image-section">
+
+
+        {% if product.discount > 0 %}
+
+        <div class="discount">
+
+            {{ product.discount }}% OFF
+
+        </div>
+
+        {% endif %}
+
+
+        <button
+            class="favorite"
+            onclick="toggleFavorite(this)"
+        >
+            ♡
+        </button>
+
+
+        <!-- SAME IMAGE MAPPING -->
+
+        <img
+            src="{{ image }}"
+            alt="{{ product.name }}"
+            class="main-image"
+        >
+
+    </div>
+
+
+
+    <!-- =================================================
+         PRODUCT DETAILS
+    ================================================== -->
+
+    <div class="product-info">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            {{ product.brand }}
+
+        </div>
+
+
+        <!-- NAME -->
+
+        <h1 class="product-title">
+
+            {{ product.name }}
+
+        </h1>
+
+
+        <!-- RATING -->
+
+        <div class="rating-row">
+
+            <span class="stars">
+                ★★★★★
+            </span>
+
+            <span class="rating-text">
+
+                {{ product.rating }} / 5
+
+            </span>
+
+        </div>
+
+
+        <!-- PRICE -->
+
+        <div class="price-row">
+
+            <span class="price">
+
+                ₹{{ product.price }}
+
+            </span>
+
+        </div>
+
+
+        {% if product.discount > 0 %}
+
+        <div class="offer">
+
+            ✨ {{ product.discount }}% OFF
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- DESCRIPTION -->
+
+        <p class="description">
+
+            {{ product.description }}
+
+        </p>
+
+
+
+        <!-- INFO -->
+
+        <div class="info-grid">
+
+
+            <div class="info-card">
+
+                <small>
+                    Fragrance Type
+                </small>
+
+                <strong>
+                    {{ product.category }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <small>
+                    Fragrance Notes
+                </small>
+
+                <strong>
+                    {{ product.fragrance_notes }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STOCK -->
+
+        {% if product.stock > 0 %}
+
+        <div class="stock">
+
+            <span class="stock-dot"></span>
+
+            In Stock ·
+            {{ product.stock }}
+            available
+
+        </div>
+
+        {% else %}
+
+        <div class="stock"
+             style="color:#e74c3c;">
+
+            ❌ Out of Stock
+
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- BUTTONS -->
+
+        {% if product.stock > 0 %}
+
+        <div class="buttons">
+
+
+            <a
+                href="{% url 'add_to_cart' product.id %}"
+                class="add-cart"
+            >
+
+                🛒 ADD TO CART
+
+            </a>
+
+
+            <a
+                href="{% url 'add_to_cart' product.id %}"
+                class="buy-now"
+            >
+
+                ⚡ BUY NOW
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- BENEFITS -->
+
+        <div class="benefits">
+
+
+            <div class="benefit">
+
+                <span class="benefit-icon">
+                    🚚
+                </span>
+
+                <strong>
+                    Free Delivery
+                </strong>
+
+                Fast Delivery
+
+            </div>
+
+
+            <div class="benefit">
+
+                <span class="benefit-icon">
+                    🔒
+                </span>
+
+                <strong>
+                    Secure Payment
+                </strong>
+
+                Safe Checkout
+
+            </div>
+
+
+            <div class="benefit">
+
+                <span class="benefit-icon">
+                    ✨
+                </span>
+
+                <strong>
+                    Premium Quality
+                </strong>
+
+                Authentic
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =================================================
+     WHY CHOOSE US
+================================================= -->
+
+<section class="why-section">
+
+    <h2>
+        Why Choose LUXEPERFUME?
+    </h2>
+
+    <p>
+        Experience premium fragrances with confidence.
+    </p>
+
+
+    <div class="why-grid">
+
+
+        <div class="why-card">
+
+            <div class="why-icon">
+                🌸
+            </div>
+
+            <h3>
+                Premium Fragrances
+            </h3>
+
+            <p>
+                Carefully selected scents created
+                for elegant and memorable moments.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div class="why-icon">
+                💎
+            </div>
+
+            <h3>
+                Luxury Experience
+            </h3>
+
+            <p>
+                Sophisticated fragrances designed
+                to match your personality and style.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div class="why-icon">
+                🚚
+            </div>
+
+            <h3>
+                Fast Delivery
+            </h3>
+
+            <p>
+                Your favourite fragrance delivered
+                safely and conveniently.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =================================================
+     FOOTER
+================================================= -->
+
+<footer>
+
+    <h3>
+        ✦ LUXEPERFUME
+    </h3>
+
+    <p>
+        Discover your signature fragrance.
+    </p>
+
+    <p>
+        © 2026 LUXEPERFUME. All Rights Reserved.
+    </p>
+
+
+    <div class="footer-links">
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'products' %}">
+            Shop
+        </a>
+
+        <a href="{% url 'about' %}">
+            About
+        </a>
+
+        <a href="{% url 'contact' %}">
+            Contact
+        </a>
+
+        <a href="{% url 'cart' %}">
+            Cart
+        </a>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =================================================
+     JAVASCRIPT
+================================================= -->
+
+<script>
+
+function toggleFavorite(button) {
+
+    if (button.innerHTML.trim() === "♡") {
+
+        button.innerHTML = "♥";
+
+        button.style.background = "var(--purple)";
+
+        button.style.color = "var(--cream)";
+
+    } else {
+
+        button.innerHTML = "♡";
+
+        button.style.background = "var(--gold)";
+
+        button.style.color = "var(--dark)";
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
